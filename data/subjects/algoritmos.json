@@ -1,0 +1,69 @@
+{
+  "id": "algoritmos",
+  "title": "Estructuras de Datos",
+  "category": "Programación",
+  "description": "Conceptos clave de estructuras de datos lineales y no lineales, grafos y árboles con ejemplos visuales.",
+  "icon": "",
+  "color": "#0ea5e9",
+  "cards": [
+    {
+      "id": "1",
+      "concept": "Pila (Stack)",
+      "definition": "Estructura lineal basada en el principio LIFO (Last In, First Out). Las inserciones (push) y eliminaciones (pop) ocurren exclusivamente en el tope.",
+      "tags": [
+        "Lineales",
+        "LIFO"
+      ],
+      "image": "images/pila_stack.svg",
+      "imagePosition": "back",
+      "hint": "Imagina una pila de platos: el último en colocarse es el primero en retirarse."
+    },
+    {
+      "id": "2",
+      "concept": "Cola (Queue)",
+      "definition": "Estructura lineal basada en el principio FIFO (First In, First Out). Los elementos se insertan por el final (enqueue) y se extraen por el frente (dequeue).",
+      "tags": [
+        "Lineales",
+        "FIFO"
+      ],
+      "image": null,
+      "imagePosition": "back",
+      "hint": "Como una fila en el supermercado: el primero que llega es el primero en ser atendido."
+    },
+    {
+      "id": "3",
+      "concept": "Árbol Binario",
+      "definition": "Estructura jerárquica no lineal donde cada nodo tiene a lo sumo dos nodos hijos, usualmente denominados hijo izquierdo e hijo derecho.",
+      "tags": [
+        "Jerárquicas",
+        "Árboles"
+      ],
+      "image": "images/arbol_binario.svg",
+      "imagePosition": "back",
+      "hint": "Estructura ramificada que comienza en un nodo único llamado raíz."
+    },
+    {
+      "id": "4",
+      "concept": "Complejidad O(1)",
+      "definition": "Tiempo de ejecución constante: la operación tarda el mismo tiempo sin importar el tamaño de los datos de entrada.",
+      "tags": [
+        "Complejidad",
+        "Big O"
+      ],
+      "image": null,
+      "imagePosition": "back",
+      "hint": "Por ejemplo, acceder a un elemento de un array por su índice."
+    },
+    {
+      "id": "5",
+      "concept": "Tabla Hash (Hash Map)",
+      "definition": "Estructura asociativa que almacena pares clave-valor y utiliza una función hash para calcular el índice donde almacenar cada elemento, permitiendo búsquedas en promedio O(1).",
+      "tags": [
+        "Asociativas",
+        "Búsqueda"
+      ],
+      "image": null,
+      "imagePosition": "back"
+    }
+  ]
+}

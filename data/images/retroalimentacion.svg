@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 230" width="100%" height="100%">
+  <defs>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrow-black" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#000000"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff" stroke="#e4e4e7" stroke-width="1" rx="8"/>
+  
+  <!-- Comparator / Sum node -->
+  <circle cx="110" cy="80" r="16" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="110" y="85" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">±</text>
+
+  <!-- Input Arrow -->
+  <line x1="30" y1="80" x2="92" y2="80" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <text x="60" y="65" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle">Entrada</text>
+
+  <!-- To Process -->
+  <line x1="128" y1="80" x2="190" y2="80" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+
+  <!-- System Box -->
+  <rect x="200" y="48" width="130" height="64" rx="6" fill="#000000" stroke="#000000" stroke-width="1"/>
+  <text x="265" y="78" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" letter-spacing="1" text-anchor="middle">SISTEMA</text>
+  <text x="265" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#a1a1aa" text-anchor="middle">Proceso</text>
+
+  <!-- Output Arrow -->
+  <line x1="332" y1="80" x2="480" y2="80" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <text x="440" y="65" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle">Salida</text>
+
+  <!-- Feedback branch point -->
+  <circle cx="390" cy="80" r="4" fill="#7c3aed"/>
+
+  <!-- Feedback Loop Path -->
+  <path d="M 390 80 L 390 165 L 110 165 L 110 100" fill="none" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-purple)"/>
+  
+  <!-- Feedback sensor box -->
+  <rect x="210" y="142" width="110" height="38" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="265" y="165" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#7c3aed" text-anchor="middle">Control / Sensor</text>
+
+  <text x="265" y="210" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#71717a" text-anchor="middle">Retroalimentación (Feedback +/-)</text>
+</svg>

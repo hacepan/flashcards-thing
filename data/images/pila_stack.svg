@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 200" width="100%" height="100%">
+  <defs>
+    <marker id="stack-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff" stroke="#e4e4e7" stroke-width="1" rx="8"/>
+  
+  <!-- Stack Container -->
+  <path d="M 170 30 L 170 165 L 280 165 L 280 30" fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- Stack Items -->
+  <rect x="180" y="125" width="90" height="28" rx="4" fill="#fafafa" stroke="#000000" stroke-width="1.5"/>
+  <text x="225" y="144" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#000000" text-anchor="middle">Elemento 1</text>
+
+  <rect x="180" y="92" width="90" height="28" rx="4" fill="#fafafa" stroke="#000000" stroke-width="1.5"/>
+  <text x="225" y="111" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#000000" text-anchor="middle">Elemento 2</text>
+
+  <rect x="180" y="58" width="90" height="28" rx="4" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="225" y="77" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">TOP (El. 3)</text>
+
+  <!-- Push / Pop Arrows -->
+  <path d="M 120 40 Q 150 20 190 40" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#stack-arrow)"/>
+  <text x="110" y="30" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#7c3aed">Push (Apilar)</text>
+
+  <path d="M 260 40 Q 300 20 330 40" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#stack-arrow)"/>
+  <text x="340" y="30" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#000000">Pop (Desapilar)</text>
+
+  <text x="225" y="186" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#71717a" text-anchor="middle">LIFO: Last In, First Out</text>
+</svg>

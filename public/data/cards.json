@@ -1,0 +1,342 @@
+[
+  {
+    "id": "1",
+    "concept": "Problema",
+    "definition": "Contradicción entre un estado real y un estado deseado de las cosas, sensación de insatisfacción"
+  },
+  {
+    "id": "2",
+    "concept": "Adaptarse",
+    "definition": "Accionar en consecuencia de condiciones que no se pueden cambiar"
+  },
+  {
+    "id": "3",
+    "concept": "Prevenir",
+    "definition": "Accionar previamente, antes de que ocurra un problema"
+  },
+  {
+    "id": "4",
+    "concept": "Reformular",
+    "definition": "Descubrir opciones que generan otros problemas que pueden ser de menor intensidad"
+  },
+  {
+    "id": "5",
+    "concept": "Contexto",
+    "definition": "Sistema de mayor jerarquía que contiene al sistema formado también por sistemas."
+  },
+  {
+    "id": "6",
+    "concept": "Caja Negra",
+    "definition": "Subsistema del que conocen las entradas, salidas y se desconoce el proceso que transforma dichas entradas en las salidas conocidas (comportamiento)."
+  },
+  {
+    "id": "7",
+    "concept": "Caja Blanca",
+    "definition": "Subsistema del que conocen las entradas, las salidas y cómo es, en detalle, el proceso que transforma dichas entradas en las salidas conocidas (comportamiento)."
+  },
+  {
+    "id": "8",
+    "concept": "Sistema",
+    "definition": "Conjunto de elementos relacionados entre sí con un objetivo en común considerado relevante para un observador."
+  },
+  {
+    "id": "9",
+    "concept": "Jerarquía sistémica",
+    "definition": "Todo sistema esta formado por subsistemas (o sistemas de menor jerarquía) y a su vez forma parte de un sistema mayor."
+  },
+  {
+    "id": "10",
+    "concept": "Enfoque lineal",
+    "definition": "Enfoque para resolver un problema teniendo en cuenta la causa y el efecto de la solucion aplicada"
+  },
+  {
+    "id": "11",
+    "concept": "Enfoque sistemico",
+    "definition": "Enfoque para resolver un problema teniendo en cuenta el impacto de la causa y efecto ademas de tener en cuenta los efectos inesperados sobre el contexto"
+  },
+  {
+    "id": "12",
+    "concept": "Enfoque reduccionista",
+    "definition": "Enfoque que considera que todos los objetos y eventos estan formados por elementos ultimos indivisibles"
+  },
+  {
+    "id": "13",
+    "concept": "Enfoque determinista",
+    "definition": "Enfoque que considera que las relaciones entre las partes se pueden representar en una relación fundamental causa-efecto"
+  },
+  {
+    "id": "14",
+    "concept": "Razonamiento analitico",
+    "definition": "Se puede entender cualquier situación u objeto dividiendo cada una de sus partes para comprender el funcionamiento del todo"
+  },
+  {
+    "id": "15",
+    "concept": "Ley de clausura",
+    "definition": "Ley que indica que la forma en la cual el sistema responde está contenida en la red de estructura de relaciones entre sus elementos"
+  },
+  {
+    "id": "16",
+    "concept": "Enfoque mecanicista",
+    "definition": "Enfoque que considera que el funcionaminento de los cuerpos animados y las maquinas son similares"
+  },
+  {
+    "id": "17",
+    "concept": "Enfoque expansionista",
+    "definition": "Enfoque que considera que todos los objetos y eventos son parte de un todo mayor, el contexto"
+  },
+  {
+    "id": "18",
+    "concept": "Enfoque no determinista",
+    "definition": "Enfoque que considera que las mismas causas no son suficientes para determinar la consecuencia"
+  },
+  {
+    "id": "19",
+    "concept": "Razonamiento sintético",
+    "definition": "Explica el comportamiento del todo a partir de su todo mayor"
+  },
+  {
+    "id": "20",
+    "concept": "Razonamiento teleológico",
+    "definition": "El comportamiento del todo se explica en la función de su objetivo"
+  },
+  {
+    "id": "21",
+    "concept": "Teleología",
+    "definition": "El estudio de las metas y propósitos de grupos"
+  },
+  {
+    "id": "22",
+    "concept": "Interrelaciones",
+    "definition": "Todas las vinculaciones posibles entre los elementos del sistema (n*(n-1))"
+  },
+  {
+    "id": "23",
+    "concept": "Estado",
+    "definition": "Valor que asume la relacion en un momento del tiempo dado"
+  },
+  {
+    "id": "24",
+    "concept": "Estado del sistema",
+    "definition": "Conjunto de relaciones existentes y no existentes en un momento dado"
+  },
+  {
+    "id": "25",
+    "concept": "Límite",
+    "definition": "La frontera que separa al sistema de su contexto y determina lo que pertenece a uno y a otro"
+  },
+  {
+    "id": "26",
+    "concept": "Comportamiento",
+    "definition": "Es la secuencia en la que se producen cambios de estado en un sistema"
+  },
+  {
+    "id": "27",
+    "concept": "Comportamiento discreto",
+    "definition": "Los estados estan claramente definidos y diferenciados"
+  },
+  {
+    "id": "28",
+    "concept": "Comportamiento continuo",
+    "definition": "Los estados no están claramente definidos y no cambia visiblemente"
+  },
+  {
+    "id": "29",
+    "concept": "Complejidad",
+    "definition": "Medida o grado de diversidad"
+  },
+  {
+    "id": "30",
+    "concept": "Sistema viviente",
+    "definition": "Sistema dotado de funciones biologicas"
+  },
+  {
+    "id": "31",
+    "concept": "Sistema no viviente",
+    "definition": "Sistema sin funciones biologicas"
+  },
+  {
+    "id": "32",
+    "concept": "Sistema abstracto",
+    "definition": "Tipo de sistema en el que todos sus elementos son conceptos o simbolos"
+  },
+  {
+    "id": "33",
+    "concept": "Sistema concreto",
+    "definition": "Sistema en el cual por lo menos dos de sus elementos son objetos o sujetos"
+  },
+  {
+    "id": "34",
+    "concept": "Sistema natural",
+    "definition": "Sistema presente en la naturaleza"
+  },
+  {
+    "id": "35",
+    "concept": "Sistema artificial",
+    "definition": "Sistema creado por humanos"
+  },
+  {
+    "id": "36",
+    "concept": "Sistema estático",
+    "definition": "Sistema que no cambia el estado en el tiempo"
+  },
+  {
+    "id": "37",
+    "concept": "Sistema dinámico",
+    "definition": "Sistema que cambia con el tiempo"
+  },
+  {
+    "id": "38",
+    "concept": "Sistema simple",
+    "definition": "Sistema que tiene pocos elementos, relaciones y estados"
+  },
+  {
+    "id": "39",
+    "concept": "Sistema complejo",
+    "definition": "Sistema con numerosos elementos, relaciones y estados"
+  },
+  {
+    "id": "40",
+    "concept": "Sistema deterministico",
+    "definition": "Sistema con un comportamiento predicible"
+  },
+  {
+    "id": "41",
+    "concept": "Sistema probabilistico",
+    "definition": "Sistema con comportamiento solo predecible mediante la estadistica"
+  },
+  {
+    "id": "42",
+    "concept": "Sistema discreto",
+    "definition": "Sistema definido por variables discretas (valores numéricos enteros previamente establecidos que no pueden cambiarse arbitrariamente)"
+  },
+  {
+    "id": "43",
+    "concept": "Sistema continuo",
+    "definition": "Sistema definido por variables continuas (variables que pueden tomar cualquier valor dentro de un rango determinado)"
+  },
+  {
+    "id": "44",
+    "concept": "Sistema abierto",
+    "definition": "Sistema que intercambia materia, energía, o información con su ambiente"
+  },
+  {
+    "id": "45",
+    "concept": "Sistema cerrados",
+    "definition": "Sistema que no intercambia materia, energía o información con el ambiente"
+  },
+  {
+    "id": "46",
+    "concept": "Entradas",
+    "definition": "Relaciones que van del contexto al sistema"
+  },
+  {
+    "id": "47",
+    "concept": "Salidas",
+    "definition": "Relaciones que van del sistema al contexto, el resultado del procesamiento de un sistema"
+  },
+  {
+    "id": "48",
+    "concept": "Ley de conservación de la información",
+    "definition": "La cantidad de información que permanece en un sistema es igual a la información que existe más la que entra"
+  },
+  {
+    "id": "49",
+    "concept": "Sinergía",
+    "definition": "Propiedad de un sistema que determina que un sistema es diferente a la suma de sus partes"
+  },
+  {
+    "id": "50",
+    "concept": "Retroalimentación",
+    "definition": "Propiedad de un sistema de ajustar su comportamiento a través de un proceso de control y retorno de información"
+  },
+  {
+    "id": "51",
+    "concept": "Retroalimentación positiva",
+    "definition": "Proceso que ajusta el comportamiento de un sistema provocando una acción amplificadora o estimuladora del proceso del sistema"
+  },
+  {
+    "id": "52",
+    "concept": "Retroalimentación negativa",
+    "definition": "Proceso que ajusta el comportamiento de un sistema provocando una acción que frena, inhibe o disminuye el proceso del sistema"
+  },
+  {
+    "id": "53",
+    "concept": "Entropía",
+    "definition": "Grado de incertidumbre por ausencia o pérdida de información en un sistema con muchas alternativas diferentes que provoca la ausencia de integración y comunicación de las partes del sistema"
+  },
+  {
+    "id": "54",
+    "concept": "Efecto palanca",
+    "definition": "Hacer grandes cambios a un sistema a partir de saber que partes y relaciones ejercen un mayor grado de control en el sistema y emprendiendo las acciones apropiadas"
+  },
+  {
+    "id": "55",
+    "concept": "Organización",
+    "definition": "Configuración de relaciones entre componentes (elementos) que define al sistema perteneciente a una clase en particular (esencia). Ej.: silla, mesa, puerta, ser humano"
+  },
+  {
+    "id": "56",
+    "concept": "Estructura",
+    "definition": "La forma particular que adopta la configuración de relaciones entre los elementos. Ej.: estilo de la silla: clásica, moderna, Luis XV, de campo…"
+  },
+  {
+    "id": "57",
+    "concept": "Identidad",
+    "definition": "Los elementos y relaciones que constituyen un sistema en particular diferenciado de otro. Ej: \"esta silla\", \"esta persona\""
+  },
+  {
+    "id": "58",
+    "concept": "Homeóstasis",
+    "definition": "Es la capacidad (el nivel) de respuesta y adaptación del sistema al contexto"
+  },
+  {
+    "id": "59",
+    "concept": "Autorregulación/Autocontrol",
+    "definition": "Capacidad de mantener ciertas variables dentro de rangos permitidos y la capacidad de tomar decisiones sin recurrir a otros sistemas"
+  },
+  {
+    "id": "60",
+    "concept": "Cibernética",
+    "definition": "Teoría que trata acerca de sistemas de control basados en la retroalimentación"
+  },
+  {
+    "id": "61",
+    "concept": "Ley de la Variedad Necesaria",
+    "definition": "El sistema de control de un sistema debe ser compatible (equivalente) a la variedad de estados posibles del sistema a controlar."
+  },
+  {
+    "id": "62",
+    "concept": "Profesional de Sistemas",
+    "definition": "Profesional que analiza, diseña, implementa y mantiene Sistemas de Información. Sostenido por la teoría de sistemas y la metodología."
+  },
+  {
+    "id": "63",
+    "concept": "Sistema de Información",
+    "definition": "Conjunto de subsistemas para recolectar, almacenar, procesar y distribuir datos y/o información para planificar, decidir y señalar en un Sistema Objeto (organización) del cual forma parte"
+  },
+  {
+    "id": "64",
+    "concept": "Sistema de Información Orientado a Datos",
+    "definition": "Se definen primero los datos a manipular por el sistema y dependiendo de la estructura de estos se desarrollan las funciones que los manejan"
+  },
+  {
+    "id": "65",
+    "concept": "Sistema de Información Orientado a Funciones",
+    "definition": "Se define un sistema con una funcionalidad específica y según ésta se define la estructura de datos, que le ofrece persistencia. Los datos se descubren a través del análisis de funciones requeridas por el sistema"
+  },
+  {
+    "id": "66",
+    "concept": "Sistema de Información Orientado a Eventos",
+    "definition": "Se define un sistema considerando los servicios que ofrecen al usuario"
+  },
+  {
+    "id": "67",
+    "concept": "Sistema de Información Orientado a Conocimientos",
+    "definition": "Se define un sistema a partir de los conocimientos públicos o privados (experticia) sobre un dominio de conocimiento en particular"
+  },
+  {
+    "id": "68",
+    "concept": "Sistema de Información Orientado a Objetos",
+    "definition": "Se define un sistema considerando el comportamiento de los elementos (objetos)"
+  }
+]

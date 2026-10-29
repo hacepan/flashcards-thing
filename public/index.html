@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Estudio</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/components/studySession.js"></script>
+  <script src="js/app.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="flashcardHubApp">
+
+  <!-- ================= TOP NAV BAR ================= -->
+  <header class="main-nav">
+    <div class="nav-content">
+      <div class="brand" @click="goToHub()">
+        <span class="brand-dot"></span>
+        <span class="brand-title">Estudio</span>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Back to Hub button if in study/explore -->
+        <button class="nav-btn" x-show="currentView !== 'hub'" @click="handleNavBack()">
+          Volver al Hub
+        </button>
+
+        <!-- Dark / Light theme toggle without emojis -->
+        <button class="theme-toggle-btn" @click="toggleTheme()">
+          <span x-text="darkMode ? 'Modo claro' : 'Modo oscuro'"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= LOADING SPINNER ================= -->
+  <div class="loading-overlay" x-show="loading">
+    <div class="spinner"></div>
+    <p>Cargando...</p>
+  </div>
+
+  <div class="app-layout" x-show="!loading">
+
+    <!-- ========================================================
+         VIEW 1: HUB (SUBJECT DASHBOARD - MINIMAL, NO TAGS, NO EMOJIS)
+    ======================================================== -->
+    <main class="hub-container" x-show="currentView === 'hub'">
+      
+      <!-- Minimal Hub Header -->
+      <section class="hub-hero">
+        <div class="hero-text">
+          <h1>Materias</h1>
+          <p>Selecciona una materia para estudiar.</p>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-box">
+            <span class="stat-number" x-text="subjects.length"></span>
+            <span class="stat-label">Materias</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number" x-text="totalCardsCount"></span>
+            <span class="stat-label">Tarjetas</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search & Category Filters -->
+      <section class="hub-filters">
+        <div class="search-box">
+          <input type="text" 
+                 x-model="searchQuery" 
+                 placeholder="Buscar materia o concepto..."
+                 autocomplete="off">
+          <button class="clear-search" x-show="searchQuery" @click="searchQuery = ''">x</button>
+        </div>
+
+        <div class="category-pills">
+          <template x-for="cat in categories" :key="cat">
+            <button class="pill-btn" 
+                    :class="{ 'active': selectedCategory === cat }"
+                    @click="selectedCategory = cat"
+                    x-text="cat === 'all' ? 'Todas' : cat">
+            </button>
+          </template>
+        </div>
+      </section>
+
+      <!-- Subject Cards List (EN FILA, NO GRID, NO TAGS, NO EMOJIS) -->
+      <section class="subjects-list">
+        <template x-for="subject in filteredSubjects" :key="subject.id">
+          <div class="subject-row">
+            <div class="subject-row-info">
+              <div class="subject-row-header">
+                <span class="subject-category" x-text="subject.category || 'General'"></span>
+                <div class="meta-badges">
+                  <span class="badge badge-count">
+                    <strong x-text="subject.cardCount"></strong> tarjetas
+                  </span>
+                  <template x-if="subject.hasImages">
+                    <span class="badge badge-image">Con diagramas</span>
+                  </template>
+                </div>
+              </div>
+
+              <h2 class="subject-title" x-text="subject.title"></h2>
+              <p class="subject-desc" x-text="subject.description"></p>
+
+              <!-- Mastery stat (Minimal) -->
+              <template x-if="getSubjectStats(subject.id)">
+                <div class="subject-stat-bar">
+                  <div class="stat-progress-label">
+                    <span>Precision anterior:</span>
+                    <strong x-text="`${getSubjectStats(subject.id).lastAccuracy}%`"></strong>
+                  </div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" :style="`width: ${getSubjectStats(subject.id).lastAccuracy}%`"></div>
+                  </div>
+                </div>
+              </template>
+            </div>
+
+            <!-- Subject Action Buttons (Row Actions) -->
+            <div class="subject-row-actions">
+              <button class="btn btn-primary" @click="quickStudy(subject)">
+                Estudiar
+              </button>
+              <button class="btn btn-secondary" @click="openExplore(subject)">
+                Explorar
+              </button>
+              <button class="btn btn-outline" @click="openStudyOptions(subject)">
+                Ajustes
+              </button>
+            </div>
+          </div>
+        </template>
+
+        <!-- Empty state when search yields no subjects -->
+        <template x-if="filteredSubjects.length === 0">
+          <div class="empty-state">
+            <h3>No se encontraron materias</h3>
+            <p>Intenta con otro termino de busqueda.</p>
+          </div>
+        </template>
+      </section>
+
+    </main>
+
+    <!-- ========================================================
+         VIEW 2: STUDY MODE (FLASHCARD VIEWER - NO TAGS, NO EMOJIS)
+    ======================================================== -->
+    <main class="study-container" x-show="currentView === 'study'">
+      
+      <!-- Top Session Bar -->
+      <div class="study-header">
+        <div class="session-info">
+          <h2 class="session-title" x-text="currentSubject?.title"></h2>
+          <div class="session-progress-row">
+            <span class="session-progress-text">
+              Tarjeta <span x-text="currentIndex + 1"></span> de <span x-text="deck.length"></span>
+            </span>
+            <button class="btn btn-outline btn-xs" 
+                    x-show="canGoPrevious()" 
+                    @click="previousCard()" 
+                    title="Volver a la tarjeta anterior (Tecla Backspace o P)">
+              Tarjeta anterior
+            </button>
+          </div>
+        </div>
+
+        <div class="study-settings-bar">
+          <label class="mode-toggle">
+            <input type="checkbox" x-model="showConceptFirst" @change="isFlipped = false">
+            <span>Concepto primero</span>
+          </label>
+
+          <button class="star-btn" 
+                  :class="{ 'is-starred': isCardStarred(getActiveCard()?.id) }"
+                  @click="toggleStarCurrent()">
+            <span x-text="isCardStarred(getActiveCard()?.id) ? 'Marcada' : 'Marcar'"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Linear Progress Bar -->
+      <div class="session-progress-bar">
+        <div class="progress-bar-fill" :style="`width: ${getProgressPercent()}%`"></div>
+      </div>
+
+      <!-- ACTIVE FLASHCARD SESSION -->
+      <template x-if="!isComplete && deck.length > 0">
+        <div class="flashcard-stage">
+          
+          <div class="card-perspective" @click="toggleFlip()">
+            <div class="card-inner" :class="{ 'is-flipped': isFlipped }">
+              
+              <!-- FRONT FACE (NO TAGS, NO EMOJIS) -->
+              <div class="card-face card-front">
+                <div class="card-top-row">
+                  <span class="card-label" x-text="getCardFaceLabel('front')"></span>
+                </div>
+
+                <div class="card-main-content">
+                  <!-- Front Text -->
+                  <div class="card-text" x-text="getCardFaceText('front')"></div>
+                  
+                  <!-- Front Image -->
+                  <template x-if="(getCurrentImagePosition() === 'front' || getCurrentImagePosition() === 'both') && getCurrentImage()">
+                    <div class="card-image-box" @click.stop="openLightbox(getCurrentImage(), getCardFaceText('front'))">
+                      <img :src="resolveImageUrl(getCurrentImage())" alt="Diagrama" loading="lazy">
+                      <span class="image-zoom-hint">Ampliar</span>
+                    </div>
+                  </template>
+
+                  <!-- Hint button -->
+                  <template x-if="getCurrentHint()">
+                    <div class="hint-container" x-data="{ open: false }" @click.stop>
+                      <button class="hint-toggle-btn" @click="open = !open">
+                        <span x-text="open ? 'Ocultar pista' : 'Ver pista'"></span>
+                      </button>
+                      <div class="hint-text" x-show="open" x-transition x-text="getCurrentHint()"></div>
+                    </div>
+                  </template>
+                </div>
+
+                <div class="card-bottom-hint">
+                  <span>Haz clic o pulsa <kbd>Espacio</kbd> para girar</span>
+                </div>
+              </div>
+
+              <!-- BACK FACE (NO TAGS, NO EMOJIS) -->
+              <div class="card-face card-back">
+                <div class="card-top-row">
+                  <span class="card-label" x-text="getCardFaceLabel('back')"></span>
+                </div>
+
+                <div class="card-main-content">
+                  <!-- Back Text -->
+                  <div class="card-text" x-text="getCardFaceText('back')"></div>
+
+                  <!-- Back Image -->
+                  <template x-if="(getCurrentImagePosition() !== 'front') && getCurrentImage()">
+                    <div class="card-image-box" @click.stop="openLightbox(getCurrentImage(), getCardFaceText('front'))">
+                      <img :src="resolveImageUrl(getCurrentImage())" alt="Diagrama" loading="lazy">
+                      <span class="image-zoom-hint">Ampliar</span>
+                    </div>
+                  </template>
+                </div>
+
+                <div class="card-bottom-hint">
+                  <span>Haz clic o pulsa <kbd>Espacio</kbd> para volver al frente</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RESPONSE ACTION BUTTONS (STRICTLY PURPLE, BLACK, WHITE) -->
+          <div class="study-action-bar">
+            <button class="btn btn-wrong" 
+                    @click="answer(false)" 
+                    :disabled="!isFlipped">
+              <span class="btn-icon">x</span>
+              <span>Me equivoque <kbd class="key-hint">&larr;</kbd></span>
+            </button>
+
+            <button class="btn btn-flip" @click="toggleFlip()">
+              <span>Girar</span>
+              <kbd class="key-hint">Espacio</kbd>
+            </button>
+
+            <button class="btn btn-right" 
+                    @click="answer(true)" 
+                    :disabled="!isFlipped">
+              <span class="btn-icon">+</span>
+              <span>Acerte <kbd class="key-hint">&rarr;</kbd></span>
+            </button>
+          </div>
+
+        </div>
+      </template>
+
+      <!-- RESULTS SCREEN WHEN DECK IS COMPLETE -->
+      <template x-if="isComplete">
+        <div class="results-container">
+          <div class="results-header">
+            <h2>Sesion Completada</h2>
+            <p class="results-sub" x-text="currentSubject?.title"></p>
+          </div>
+
+          <div class="score-card">
+            <div class="score-circle">
+              <span class="score-big" x-text="`${getAccuracyPercent()}%`"></span>
+              <span class="score-small" x-text="`${score} de ${deck.length} aciertos`"></span>
+            </div>
+            
+            <div class="score-summary-grid">
+              <div class="summary-pill pill-right">
+                <span>Acertadas:</span>
+                <strong x-text="score"></strong>
+              </div>
+              <div class="summary-pill pill-wrong">
+                <span>Falladas:</span>
+                <strong x-text="missedCards.length"></strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option to immediately review missed cards -->
+          <template x-if="missedCards.length > 0">
+            <div class="missed-review-box">
+              <h3>Tarjetas para reforzar</h3>
+              <p>Tienes <strong x-text="missedCards.length"></strong> tarjetas para repasar:</p>
+              
+              <ul class="missed-preview-list">
+                <template x-for="card in missedCards.slice(0, 5)" :key="card.id">
+                  <li x-text="card.concept"></li>
+                </template>
+                <template x-if="missedCards.length > 5">
+                  <li class="more-missed" x-text="`...y ${missedCards.length - 5} mas`"></li>
+                </template>
+              </ul>
+
+              <button class="btn btn-primary btn-block" @click="reviewMissedOnly()">
+                Repasar solo las <span x-text="missedCards.length"></span> falladas
+              </button>
+            </div>
+          </template>
+
+          <div class="results-actions">
+            <button class="btn btn-primary btn-block" @click="restartFull()">
+              Reiniciar mazo completo
+            </button>
+            <button class="btn btn-secondary btn-block" @click="handleNavBack()">
+              Volver al Hub
+            </button>
+          </div>
+        </div>
+      </template>
+
+    </main>
+
+    <!-- ========================================================
+         VIEW 3: EXPLORE MODE (NO TAGS, NO EMOJIS)
+    ======================================================== -->
+    <main class="explore-container" x-show="currentView === 'explore'">
+      <div class="explore-header">
+        <div class="explore-title-box">
+          <div>
+            <h1 x-text="currentSubject?.title"></h1>
+            <p x-text="currentSubject?.description"></p>
+          </div>
+        </div>
+
+        <div class="explore-top-actions">
+          <button class="btn btn-secondary" @click="exportSubjectSQLite(currentSubject?.id)">
+            Exportar .db
+          </button>
+          <button class="btn btn-primary" @click="openStudyOptions(currentSubject)">
+            Estudiar
+          </button>
+        </div>
+      </div>
+
+      <!-- Search in explore -->
+      <div class="explore-filters">
+        <div class="search-box">
+          <input type="text" 
+                 x-model="exploreSearch" 
+                 placeholder="Filtrar conceptos o palabras clave..."
+                 autocomplete="off">
+          <button class="clear-search" x-show="exploreSearch" @click="exploreSearch = ''">x</button>
+        </div>
+      </div>
+
+      <div class="explore-count">
+        Mostrando <strong x-text="filteredExploreCards.length"></strong> de <span x-text="currentSubject?.cards?.length || 0"></span> tarjetas
+      </div>
+
+      <!-- Card Table / List Grid (NO TAGS) -->
+      <div class="explore-list">
+        <template x-for="(card, idx) in filteredExploreCards" :key="card.id">
+          <div class="explore-card-item">
+            <div class="explore-card-header">
+              <span class="card-num" x-text="`#${idx + 1}`"></span>
+            </div>
+
+            <div class="explore-card-body">
+              <div class="explore-concept">
+                <strong x-text="card.concept"></strong>
+                <template x-if="card.hint">
+                  <span class="explore-hint-badge" :title="card.hint">Pista</span>
+                </template>
+              </div>
+              <div class="explore-definition" x-text="card.definition"></div>
+            </div>
+
+            <template x-if="card.image">
+              <div class="explore-thumbnail" @click="openLightbox(card.image, card.concept)">
+                <img :src="resolveImageUrl(card.image)" alt="Diagrama">
+                <span>Ampliar</span>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <template x-if="filteredExploreCards.length === 0">
+          <div class="empty-state">
+            <p>No se encontraron tarjetas que coincidan con la busqueda.</p>
+          </div>
+        </template>
+      </div>
+    </main>
+
+  </div> <!-- /app-layout -->
+
+  <!-- ========================================================
+       MODAL: STUDY SETUP OPTIONS (NO EMOJIS)
+  ======================================================== -->
+  <div class="modal-backdrop" x-show="studyModalOpen" x-transition.opacity>
+    <div class="modal-card" @click.outside="studyModalOpen = false">
+      <div class="modal-header">
+        <h3>Configurar Estudio</h3>
+        <button class="modal-close" @click="studyModalOpen = false">x</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="setup-subject-info">
+          <div>
+            <h4 x-text="subjectToStudy?.title"></h4>
+            <p x-text="`${subjectToStudy?.cardCount} tarjetas en total`"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Cantidad de tarjetas:</label>
+          <div class="radio-pill-group">
+            <button type="button" 
+                    class="pill-btn" 
+                    :class="{ 'active': studyLimit === 10 }" 
+                    @click="studyLimit = 10">10 tarjetas</button>
+            <button type="button" 
+                    class="pill-btn" 
+                    :class="{ 'active': studyLimit === 20 }" 
+                    @click="studyLimit = 20">20 tarjetas</button>
+            <button type="button" 
+                    class="pill-btn" 
+                    :class="{ 'active': studyLimit === 50 }" 
+                    @click="studyLimit = 50">50 tarjetas</button>
+            <button type="button" 
+                    class="pill-btn" 
+                    :class="{ 'active': studyLimit === 'all' }" 
+                    @click="studyLimit = 'all'">Todas</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Modo de seleccion:</label>
+          <div class="radio-pill-group">
+            <button type="button" 
+                    class="pill-btn" 
+                    :class="{ 'active': studyMode === 'random' }" 
+                    @click="studyMode = 'random'">Aleatorio</button>
+            <button type="button" 
+                    class="pill-btn" 
+                    :class="{ 'active': studyMode === 'all' }" 
+                    @click="studyMode = 'all'">En orden</button>
+            <button type="button" 
+                    class="pill-btn" 
+                    :class="{ 'active': studyMode === 'starred' }" 
+                    @click="studyMode = 'starred'">Solo marcadas</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" @click="studyModalOpen = false">Cancelar</button>
+        <button class="btn btn-primary" @click="startStudying(subjectToStudy)">
+          Comenzar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: IMAGE LIGHTBOX
+  ======================================================== -->
+  <div class="lightbox-backdrop" x-show="lightboxOpen" x-transition.opacity @click="closeLightbox()">
+    <div class="lightbox-content" @click.stop>
+      <div class="lightbox-header">
+        <h4 x-text="lightboxTitle || 'Diagrama'"></h4>
+        <button class="lightbox-close" @click="closeLightbox()">x</button>
+      </div>
+      <div class="lightbox-body">
+        <img :src="lightboxImage" :alt="lightboxTitle">
+      </div>
+      <div class="lightbox-footer">
+        <span>Presiona <kbd>Esc</kbd> o haz clic afuera para cerrar</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
